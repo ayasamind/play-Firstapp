@@ -15,3 +15,6 @@ GET		/item						controllers.Application.setitem()
 
 POST	/edit						controllers.Application.edit()
 POST	/update						controllers.Application.update()
+
+GET		/del						controllers.Application.delete()
+POST	/remove						controllers.Application.remove()

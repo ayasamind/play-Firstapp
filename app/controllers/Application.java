@@ -44,7 +44,7 @@ public class Application extends Controller {
     		Message obj = f.get();
     		Long id = obj.id;
     		obj = Message.find.byId(id);
-    		if (obj !=null){
+    		if (obj != null){
     			f = new Form(Message.class).fill(obj);
     			return ok(edit.render("ID=" + id + "の投稿を編集",f));
     		} else {
@@ -65,5 +65,27 @@ public class Application extends Controller {
     		return ok(edit.render("ERROR:再度入力ください。",f));
     	}
     	
+    }
+
+    public static Result delete(){
+    	Form<Message> f = new Form(Message.class);
+    	return ok(delete.render("削除するID番号", f));
+    }
+
+    public static Result remove(){
+    	Form<Message> f = new Form(Message.class).bindFromRequest();
+    	if (!f.hasErrors()){
+    		Message obj = f.get();
+    		Long id = obj.id;
+    		obj = Message.find.byId(id);
+    		if (obj != null){
+    			obj.delete();
+    			return redirect("/");
+    		} else {
+    			return ok(delete.render("ERROR:そのID番号は見つかりません",f));
+    		}
+    	} else {
+    		return ok(delete.render("ERROR:入力にエラーが起こりました。", f));
+    	}
     }
 }
